@@ -1,10 +1,27 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>FizzBuzz</title>
-  </head>
-  <body>
-    <h1>FizzBuzz</h1>
-    <!--ANY DOM ELEMENTS YOU MAKE HERE  -->
-    <script src="app.js"></script>
-  </body>
+<head>
+
+    <script src="jquery-3.1.1.min.js">
+    </script>
+    <script src="app.js">
+    </script>
+    <link href="fizzbuzz.css" rel="stylesheet" type="text/css">
+    <title>FIZZBUZZ EVENT</title>
+</head>
+<body>
+    <form id="new-number" name="new-number">
+        <h2>Input Your Numbers Here</h2>
+        <div class="field">
+            <label>1st number</label> <input id="number_1" name="number_1"
+            type="number">
+        </div>
+        <div class="field">
+            <label>2nd number</label> <input id="number_2" name="number_2"
+            type="number">
+        </div><button type="submit">Add</button>
+    </form>
+    <h2>FizzBuzz!</h2>
+    <div id="fizz-buzz"></div>
+</body>
 </html>
