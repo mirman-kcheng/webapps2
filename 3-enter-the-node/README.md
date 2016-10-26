@@ -39,7 +39,7 @@ What's the solution?
 
 So let's get our `package.json` going:
 
-    $ npm init
+    $ npm initd
 
 It'll ask you a bunch of questions. If you don't know the answers, just leave them blank. It doesn't matter for this project.
 
