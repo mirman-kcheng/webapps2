@@ -12,14 +12,15 @@ app.use(bodyParser.json());
 function loadTodos(callback) {
   return fs.readFile("./todos.json", (err, data) => {
     if (err) throw err;
-    callback(JSON.parse(data));
+    const alldata = JSON.parse(data);
+    callback(alldata);
   });
 }
 
 app.route("/todos")
 .get((req, res) => {
-  loadTodos((data) => {
-    res.json(JSON.data);
+  loadTodos((alldata) => {
+    res.json(alldata.data);
   });
 })
 .post((req, res) => {
@@ -42,14 +43,14 @@ app.route("/todos/:id")
   const id = parseInt(req.params.id);
   loadTodos((json) => {
     const todos = json.data;
-    for (const t in todos) {
-      const todo = todos[t];
+    for (const i in todos) {
+      const todo = todos[i];
       if (todo.id === id) {
         return res.json(todo);
       }
     }
-  });
     return res.send("No todo found");
+  });
 })
 .put((req, res) => {
   const id = req.params.id;
