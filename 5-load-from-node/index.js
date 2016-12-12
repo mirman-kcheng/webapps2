@@ -53,23 +53,54 @@ app.route("/todos/:id")
   });
 })
 .put((req, res) => {
-  const id = req.params.id;
-  res.send(`Updating todo #${id}`);
-})
-.delete((req, res) => {
   const id = parseInt(req.params.id);
   loadTodos((json) => {
     const todos = json.data;
-    for (const t in todos) {
-      const todo = todos[t];
+    for (const i in todos) {
+      const todo = todos[i];
+      let updateTodo = req.body;
       if (todo.id === id) {
-        data.splice(todo.id, 1);
-        return res.json(todo);
-      }
+        todo = json.data.push(updateTodo);
+        fs.writeFile("./todos.json", JSON.stringify(json), (err) => {
+          if (err) throw err;
+          res.status(200).end();
+          return res.json("todo updated");
+      })
     }
-  });
     return res.send("No todo found");
-});
+  };
+})
+})
+.delete((req, res) => {
+  const id = parseInt(req.params.id);
+  function correctId(todo) {
+    return todo != id;
+  }
+  loadTodos((json) => {
+    const todos = json.data;
+    var filtered = todos.filter(correctId);
+    json.data = filtered;
+    fs.writeFile("./todos.json", JSON.stringify(json), (err) => {
+      if (err) throw err;
+      res.status(200).end();
+      })
+    })
+ });
+
+//     for (const i in todos) {
+//       const todo = todos[i];
+//       if (todo.id === id) {
+//         todos.splice(todo, 1);
+//         fs.writeFile("./todos.json", JSON.stringify(json), (err) => {
+//           if (err) throw err;
+//           res.status(200).end();
+//
+//         });
+//       }
+//     }
+//     return res.send("No todo found");
+//   });
+// });
 
 app.listen(port, () => {
   console.log(`Listening on ${port}!`);
