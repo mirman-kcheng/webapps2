@@ -58,30 +58,38 @@ app.route("/todos/:id")
     const todos = json.data;
     for (const i in todos) {
       const todo = todos[i];
-      let updateTodo = req.body;
       if (todo.id === id) {
-        todo = json.data.push(updateTodo);
+        console.log(todo);
+        todo.text = req.body.text;
+        todo.completed = req.body.completed;
         fs.writeFile("./todos.json", JSON.stringify(json), (err) => {
           if (err) throw err;
           res.status(200).end();
           return res.json("todo updated");
-      })
-    }
-    return res.send("No todo found");
-  };
+        })
+      }    }
+  })
 })
-})
+//     const todos = json.data;
+//     for (const i in todos) {
+//       const todo = todos[i];
+//       let updateTodo = req.body;
+//       if (todo.id === id) {
+//         todo = json.data.push(updateTodo);
+//         fs.writeFile("./todos.json", JSON.stringify(json), (err) => {
+//           if (err) throw err;
+//           res.status(200).end();
+//           return res.json("todo updated");
+//       })
+//     }
+//     return res.send("No todo found");
+//   };
+// })
 .delete((req, res) => {
   const id = parseInt(req.params.id);
-  //function correctId(x) {
-    //return x != id;
-//  }
   loadTodos((json) => {
     const todos = json.data;
     console.log(todos);
-//    var filtered = todos.filter(correctId);
-  //  console.log(filtered);
-  //  json.data = filtered;
     var filtered = todos.filter((check) => {
         return check.id != id;
     });
@@ -94,21 +102,6 @@ app.route("/todos/:id")
       })
     })
  });
-
-//     for (const i in todos) {
-//       const todo = todos[i];
-//       if (todo.id === id) {
-//         todos.splice(todo, 1);
-//         fs.writeFile("./todos.json", JSON.stringify(json), (err) => {
-//           if (err) throw err;
-//           res.status(200).end();
-//
-//         });
-//       }
-//     }
-//     return res.send("No todo found");
-//   });
-// });
 
 app.listen(port, () => {
   console.log(`Listening on ${port}!`);
