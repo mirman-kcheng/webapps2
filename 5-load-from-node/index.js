@@ -62,12 +62,13 @@ app.route("/todos/:id")
         console.log(todo);
         todo.text = req.body.text;
         todo.completed = req.body.completed;
-        fs.writeFile("./todos.json", JSON.stringify(json), (err) => {
-          if (err) throw err;
-          res.status(200).end();
-          return res.json("todo updated");
         })
-      }    }
+      }
+      fs.writeFile("./todos.json", JSON.stringify(json), (err) => {
+            if (err) throw err;
+            res.status(200).end();
+            return res.json("todo updated");
+    }
   })
 })
 //     const todos = json.data;
