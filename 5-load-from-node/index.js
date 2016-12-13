@@ -52,7 +52,7 @@ app.route("/todos/:id")
     return res.send("No todo found");
   });
 })
-.put((req, res) => {
+.put((req, res) => { //change specific properties like completed and text and then writefile
   const id = parseInt(req.params.id);
   loadTodos((json) => {
     const todos = json.data;
@@ -73,15 +73,23 @@ app.route("/todos/:id")
 })
 .delete((req, res) => {
   const id = parseInt(req.params.id);
-  function correctId(todo) {
-    return todo != id;
-  }
+  //function correctId(x) {
+    //return x != id;
+//  }
   loadTodos((json) => {
     const todos = json.data;
-    var filtered = todos.filter(correctId);
+    console.log(todos);
+//    var filtered = todos.filter(correctId);
+  //  console.log(filtered);
+  //  json.data = filtered;
+    var filtered = todos.filter((check) => {
+        return check.id != id;
+    });
+    console.log(filtered);
     json.data = filtered;
     fs.writeFile("./todos.json", JSON.stringify(json), (err) => {
       if (err) throw err;
+      res.send("todo deleted");
       res.status(200).end();
       })
     })
