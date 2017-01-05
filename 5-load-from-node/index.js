@@ -52,7 +52,7 @@ app.route("/todos/:id")
     return res.send("No todo found");
   });
 })
-.put((req, res) => { //change specific properties like completed and text and then writefile
+.put((req, res) => {
   const id = parseInt(req.params.id);
   loadTodos((json) => {
     const todos = json.data;
@@ -62,30 +62,16 @@ app.route("/todos/:id")
         console.log(todo);
         todo.text = req.body.text;
         todo.completed = req.body.completed;
-        })
       }
+    }
+  });
       fs.writeFile("./todos.json", JSON.stringify(json), (err) => {
             if (err) throw err;
             res.status(200).end();
             return res.json("todo updated");
-    }
   })
 })
-//     const todos = json.data;
-//     for (const i in todos) {
-//       const todo = todos[i];
-//       let updateTodo = req.body;
-//       if (todo.id === id) {
-//         todo = json.data.push(updateTodo);
-//         fs.writeFile("./todos.json", JSON.stringify(json), (err) => {
-//           if (err) throw err;
-//           res.status(200).end();
-//           return res.json("todo updated");
-//       })
-//     }
-//     return res.send("No todo found");
-//   };
-// })
+
 .delete((req, res) => {
   const id = parseInt(req.params.id);
   loadTodos((json) => {
@@ -107,3 +93,5 @@ app.route("/todos/:id")
 app.listen(port, () => {
   console.log(`Listening on ${port}!`);
 });
+
+app.use(express.static('public'));
