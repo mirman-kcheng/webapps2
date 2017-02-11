@@ -1,4 +1,5 @@
 import $ from "jquery";
+import {addTodo} from "./actions";
 export default function newTodoForm() {
   return $(document.createElement("form"))
     .append(
@@ -8,28 +9,23 @@ export default function newTodoForm() {
       $(document.createElement("input"))
       .attr("type","text")
       .attr("id","new-todo-text")
+      .attr("placeholder","Enter new todo")
+    )
+    .append(
+      $(document.createElement("input"))
+        .attr("type","date")
+        .attr("id","new-todo-date")
     )
     .append(
       $(document.createElement("button")).text("Add")
       .attr("id","new-todo")
-      .click(() => {
+      .click((e) => {
         console.log("Adding a todo");
           const newTodo = {
-            text: $("#new-todo-text").val()
-          }
-          //AJAX POST the new todo
-        return $.ajax(
-          "./todos",
-          {
-            method: "POST"
-          }
-        )
-        .done( () => {
-          console.log("Success!");
-        })
-        .fail( () => {
-          console.error("Something bad happened");
-        });
+            text: $("#new-todo-text").val(),
+            date: $("#new-todo-date").val()
+          };
+        addTodo([], newTodo);
       })
-    )
+    );
 }
