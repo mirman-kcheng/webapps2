@@ -37,6 +37,20 @@ export default function todoListItem(todo) {
             editTodo([],todo.id,editedTodo);
           })
         )
+        .append(
+          $(document.createElement("button"))
+          .text("Cancel")
+          .hide()
+          .attr("id", `edit-todo-cancel-${todo.id}`)
+          .attr("type", "button")
+          .click((e) => {
+            $(`#edit-todo-button-${todo.id}`).hide();
+            $(`#edit-todo-text-${todo.id}`).hide();
+            $(`#edit-todo-date-${todo.id}`).hide();
+            $(`#edit-todo-${todo.id}`).hide();
+            $(`#edit-todo-cancel-${todo.id}`).hide();
+          })
+        )
     )
     .append(
       $(document.createElement("button")).text("Edit")
@@ -45,6 +59,7 @@ export default function todoListItem(todo) {
           $(`#edit-todo-text-${todo.id}`).show();
           $(`#edit-todo-date-${todo.id}`).show();
           $(`#edit-todo-${todo.id}`).show();
+          $(`#edit-todo-cancel-${todo.id}`).show();
           console.log("edit your todo!");
       })
     )
