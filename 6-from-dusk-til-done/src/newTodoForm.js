@@ -2,6 +2,7 @@ import $ from "jquery";
 import {addTodo} from "./actions";
 export default function newTodoForm() {
   return $(document.createElement("form"))
+    .attr("id", "new-todo-form")
     .append(
       $(document.createElement("h2")).text("New Todo")
     )

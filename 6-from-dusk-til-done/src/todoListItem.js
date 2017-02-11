@@ -1,23 +1,12 @@
 import $ from "jquery";
 import {deleteTodo, editTodo} from "./actions";
 export default function todoListItem(todo) {
-  return $(document.createElement("div")) //wrapped div in jquery selector
+  return $(document.createElement("div"))
+
     .append(
       $(document.createElement("h3"))
         .text(`${todo.date}: ${todo.text}`)
     )
-    // .append(
-    //   $(document.createElement("button")).text("Edit")
-    //     .click((e) => {
-    //       $("#edit-input-box").show();
-    //       console.log("edit your todo!");
-    //   })
-    // )
-    // .append(
-    //   $(document.createElement("button")).text("Save")
-    //     .attr("id", `edit-input-${todo.id}`)
-    //     .hide()
-    // )
     .append(
       $(document.createElement("div"))
         .attr("id",`edit-todo-${todo.id}`)
@@ -26,14 +15,18 @@ export default function todoListItem(todo) {
             .attr("type","date")
             .val(todo.date)
             .attr("id",`edit-todo-date-${todo.id}`)
+            .hide()
         )
         .append(
           $(document.createElement("input"))
             .attr("id", `edit-todo-text-${todo.id}`)
+            .hide()
         )
         .append(
           $(document.createElement("button"))
           .text("Save")
+          .attr("id",`edit-todo-button-${todo.id}`)
+          .hide()
           .click((e) => {
             const editedTodo = {
               id: todo.id,
@@ -44,6 +37,16 @@ export default function todoListItem(todo) {
             editTodo([],todo.id,editedTodo);
           })
         )
+    )
+    .append(
+      $(document.createElement("button")).text("Edit")
+        .click((e) => {
+          $(`#edit-todo-button-${todo.id}`).show();
+          $(`#edit-todo-text-${todo.id}`).show();
+          $(`#edit-todo-date-${todo.id}`).show();
+          $(`#edit-todo-${todo.id}`).show();
+          console.log("edit your todo!");
+      })
     )
     .append(
       $(document.createElement("input"))

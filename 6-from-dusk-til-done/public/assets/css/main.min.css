@@ -1,1 +1,21 @@
-body{color:white;background:#0064ff;font-size:18px}
+body {
+  color:white;
+  background:#0064ff;
+  font-size:18px;
+}
+
+h1 {
+  text-shadow: 4px 2px #000000;
+}
+
+#root {
+  background:#07337a;
+  border-radius: 5px;
+  padding: 2px;
+  margin: 2px 0px 0px 0pxl
+  border: 3px solid white;
+}
+
+button:hover{
+  border: 3px solid white;
+}
